@@ -10,21 +10,19 @@
                 <div class="slideshow-container w-full flex flex-row">
                     @foreach($sliders as $number => $slider)
                         @if($activeSlider === $number)
-                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }}">
+                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }} absolute inset-0">
                                 <!-- Slides -->
                                 @for ($slide = 1; $slide <= $totalSlides; $slide++)
-                                    <div wire:key="slider-{{ $number }}-slide-{{ $slide }}" 
-                                    class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
-                                        <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" 
-                                        alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
+                                    <div wire:key="slider-{{ $number }}-slide-{{ $slide }}" class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
+                                        <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
                                     </div>
                                 @endfor
                                 
                                 <!-- Navigation buttons -->
                                 <a wire:click="changeSlide({{ $number }}, 'prev')" 
-                                class="next z-10">&#10095;</a>
+                                class="next z-10 fas fa-angle-right fa-3x"></a>
                                 <a wire:click="changeSlide({{ $number }}, 'next')" 
-                                class="prev z-10">&#10094;</a>
+                                class="prev z-10 fas fa-angle-left fa-3x"></a>
                             </div>
                         @endif
                     @endforeach
@@ -47,7 +45,7 @@
 
             <!-- Smaller Heading Below Big Heading -->
             <h2 class="text-lg text-black font-semibold mb-4">Colours</h2>
-
+            
             <!-- Horizontal Small Buttons (3 of them) -->
             <div class="flex justify-center space-x-2 mx-4 my-4">
                 @foreach($buttons as $index => $info)
@@ -57,6 +55,15 @@
                     </button>
                 @endforeach
             </div>
+
+            {{-- <div class="flex justify-center space-x-2 mx-4 my-4">
+                <button wire:click="resetSlide" class="toggle-button bg-white hover:bg-white text-white px-2 py-1 border border-slate-200 rounded">1</button>
+                <button wire:click="resetSlide" class="toggle-button bg-gray-400 hover:bg-gray-400 text-gray-400 px-2 py-1 border border-slate-200 rounded">2</button>
+                <button wire:click="resetSlide" class="toggle-button bg-gray-700 hover:bg-gray-700 text-gray-700 px-2 py-1 border border-slate-200 rounded">3</button>
+                <button wire:click="resetSlide" class="toggle-button bg-blue-600 hover:bg-blue-600 text-blue-600 px-2 py-1 border border-slate-200 rounded">4</button>
+                <button wire:click="resetSlide" class="toggle-button bg-yellow-600 hover:bg-yellow-600 text-yellow-600 px-2 py-1 border border-slate-200 rounded">5</button>
+                <button wire:click="resetSlide" class="toggle-button bg-red-600 hover:bg-red-600 text-red-600 px-2 py-1 border border-slate-200 rounded">6</button>
+            </div> --}}
 
             <!-- Smaller Heading Below Big Heading -->
             <h2 class="text-lg text-black font-semibold mb-4">Variants</h2>
@@ -84,6 +91,7 @@
             <div class="relative">
                 <label for="locations" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your Location</label>
                 <select id="locations" class="bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded block w-full focus:outline-none focus:ring-4 focus:ring-red-300">
+                {{-- <select id="locations" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
                 <option onclick="selectOption('Peninsular')">Peninsular</option>
                 <option onclick="selectOption('East Malaysia')">East Malaysia</option>
                 <option onclick="selectOption('Labuan')">Labuan</option>

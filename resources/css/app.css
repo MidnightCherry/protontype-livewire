@@ -5,6 +5,7 @@
 .slideshow-container {
     height: auto; 
     position: relative;
+    min-height: 250px;
 }
 
 .fade, .fade-active {
@@ -34,6 +35,8 @@
 }
 
 .next, .prev {
+    width: 50px; 
+    height: 50px;
     z-index: 20;
     position: absolute;
     top: 50%; 
