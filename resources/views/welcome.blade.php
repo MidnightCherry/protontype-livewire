@@ -79,7 +79,7 @@
 <body class="flex flex-col min-h-screen">
     <div class="flex-grow">
         <!-- Navbar (sit on top) -->
-        <div class="w3-top bg-transparent text-white">
+        <div class="w3-top bg-black text-white">
             <div class="w3-bar" id="myNavbar">
                 <a href="#home" class="w3-bar-item w3-button">Logo</a>
                 <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right">Login</a>
@@ -89,14 +89,14 @@
             <!-- Main Content (70%) -->
             <livewire:slider-component />
             @livewireScripts
-
     </div>
     <!-- Middle Footer -->
     <div id="#this-is-price" class="bg-gray-400 absolute inset-x-1/4 bottom-0 h-16 w-1/3 justify-center item-center content-center rounded -mb-1">
         <h1 class="text-white text-center my-5">This is middle footer</h1>
+        
     </div>
 
-    <script>
+    {{-- <script>
         jQuery(document).ready(function($) {
         // Hide all elements except the first one
         $('.toggle-content:not(:first)').hide();
@@ -111,8 +111,8 @@
             // Fade in the corresponding element with the specified duration
             $('.toggle-content').eq(index).fadeIn(fadeDuration);
         });
-    });
-    </script>
+    }); 
+    </script>--}}
     <script>
         $(document).ready(function(){
             var initialPrices = [
@@ -128,22 +128,22 @@
             //var targetHeading = $('.elementor-widget-container').find('h1');
             var targetHeading = $('#this-is-price').find('h1');
 
-        $(".model-button").click(function(){
-            var selectedIndex = $(".dropdown-location").prop('selectedIndex');
-            var indexIsValid = selectedIndex >= 0 && selectedIndex < initialPrices.length;
-            var price = indexIsValid ? initialPrices[selectedIndex] : initialPrices[0]; // Default to initial price
+            $(".model-button").click(function(){
+                var selectedIndex = $(".dropdown-location").prop('selectedIndex');
+                var indexIsValid = selectedIndex >= 0 && selectedIndex < initialPrices.length;
+                var price = indexIsValid ? initialPrices[selectedIndex] : initialPrices[0]; // Default to initial price
 
-            if ($(this).attr("id") === "model2" && indexIsValid) {
-                price = model2Prices[selectedIndex];
-                } else if ($(this).attr("id") === "model3" && indexIsValid) {
-                    price = model3Prices[selectedIndex];
-                } else if ($(this).attr("id") === "model4" && indexIsValid) {
-                    price = model4Prices[selectedIndex];
-            }
+                if ($(this).attr("id") === "model2" && indexIsValid) {
+                    price = model2Prices[selectedIndex];
+                    } else if ($(this).attr("id") === "model3" && indexIsValid) {
+                        price = model3Prices[selectedIndex];
+                    } else if ($(this).attr("id") === "model4" && indexIsValid) {
+                        price = model4Prices[selectedIndex];
+                }
 
-            targetHeading.text("RM " + price.toLocaleString());
+                targetHeading.text("RM " + price.toLocaleString());
+            });
         });
-    });
     </script>
 
     <script>

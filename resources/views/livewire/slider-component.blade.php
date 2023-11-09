@@ -3,39 +3,37 @@
 <div class="flex h-screen relative">
     <!-- Main Content (70%) -->
     <div class="w-3/4 bg-cover bg-center relative">
-        <div class="absolute inset-0 items-center justify-center">
-
+        <div class="items-center justify-center">
             <!-- Slider 1 -->
             <div class="static toggle-content flex items-center justify-center h-screen">
-
-                <!-- Slideshow container -->
-                <div x-data="{slide: {{ $slide }}, totalSlides: {{ $totalSlides }} }" class="slideshow-container w-4/5 flex flex-row">
-                    <!-- Full-width images with number and caption text -->
-                    @for($slide = 1; $slide <= $totalSlides; $slide++)
-                        <div x-show="slide === {{ $slide }}" class="mySlides">
-                            <div class="numbertext">{{ $slide }} / {{ $totalSlides }}</div>
-                            <h1>slide: {{ $slide }}</h1><br/>
-                            <h1>totalslide: {{ $totalSlides }}</h1><br/>
-                            {{-- <h1>i: {{ $i }}</h1><br/> --}}
-                            <img x-bind:src="'{{ asset('images/proton_car_png/X90/x90_Side_' . $slide . '_Red.png') }}'" style="width:100%">
-                        </div>
-                    @endfor
+                <!-- slider-component.blade.php -->              
+                <div class="slideshow-container w-full flex flex-row justify-center items-center relative">
+                    @foreach($sliders as $number => $slider)
+                        @if($activeSlider === $number)
+                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }} absolute inset-0">
+                                <!-- Slides -->
+                                @for ($slide = 1; $slide <= $totalSlides; $slide++)
+                                    <div wire:key="slider-{{ $number }}-slide-{{ $slide }}" class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
+                                        <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
+                                    </div>
+                                @endfor
+                                
+                                <!-- Navigation buttons -->
+                                <a wire:click="changeSlide({{ $number }}, 'prev')" class="next z-10">&#10095;</a>
+                                <a wire:click="changeSlide({{ $number }}, 'next')" class="prev z-10">&#10094;</a>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
-
-                <!-- Next and previous buttons -->
-                {{-- <a wire:click="nextSlide" class="next absolute top-1/2 right-10 transform -translate-y-1/2 cursor-pointer">&#10095;</a>
-                <a wire:click="previousSlide" class="prev absolute top-1/2 left-10 transform -translate-y-1/2 cursor-pointer">&#10094;</a> --}}
-                <div class="flex flex-col h-screen relative mt-20">
-                    <button wire:click="nextSlide">Increment</button>
-                    <button wire:click="previousSlide">Decrement</button>
-                </div>
-
+                
             </div>
+            
         </div>
     </div>
 
     <!-- Side Content (30%) -->
     <div class="relative w-1/4 bg-gray-50">
+        
         <div class="static mt-20 mx-10 ">
             <div class="flex justify-center">
                 <!-- Big Heading with Dual Color -->
@@ -47,14 +45,29 @@
             <h2 class="text-lg text-black font-semibold mb-4">Colours</h2>
 
             <!-- Horizontal Small Buttons (3 of them) -->
+            {{-- <div class="flex justify-center space-x-2 mx-4 my-4">
+                @foreach($buttons as $button)
+                    <button wire:click="resetSlide" class="toggle-button bg-{{ $button['color'] }} hover:bg-{{ $button['color'] }} text-{{ $button['color'] }} px-2 py-1 border border-slate-200 rounded">{{ $button['label'] }}</button>
+                @endforeach
+            </div> --}}
+            <!-- Horizontal Small Buttons (3 of them) -->
             <div class="flex justify-center space-x-2 mx-4 my-4">
-                <button x-on:click="slide = 1" class="toggle-button bg-white hover:bg-white text-white px-2 py-1 border border-slate-200 rounded">1</button>
-                <button x-on:click="slide = 1" class="toggle-button bg-gray-400 hover:bg-gray-400 text-gray-400 px-2 py-1 border border-slate-200 rounded">2</button>
-                <button x-on:click="slide = 1" class="toggle-button bg-gray-700 hover:bg-gray-700 text-gray-700 px-2 py-1 border border-slate-200 rounded">3</button>
-                <button x-on:click="slide = 1" class="toggle-button bg-blue-600 hover:bg-blue-600 text-blue-600 px-2 py-1 border border-slate-200 rounded">4</button>
-                <button x-on:click="slide = 1" class="toggle-button bg-yellow-600 hover:bg-yellow-600 text-yellow-600 px-2 py-1 border border-slate-200 rounded">5</button>
-                <button x-on:click="slide = 1" class="toggle-button bg-red-600 hover:bg-red-600 text-red-600 px-2 py-1 border border-slate-200 rounded">6</button>
+                @foreach($buttons as $index => $info)
+                    <button wire:click="switchSlider({{ $index + 1 }})"
+                            class="toggle-button bg-{{ $info['bgColor'] }} hover:bg-{{ $info['bgColor'] }} text-{{ $info['textColor'] }} px-2 py-1 border border-slate-200 rounded">
+                        {{ $index + 1 }}
+                    </button>
+                @endforeach
             </div>
+
+            {{-- <div class="flex justify-center space-x-2 mx-4 my-4">
+                <button wire:click="resetSlide" class="toggle-button bg-white hover:bg-white text-white px-2 py-1 border border-slate-200 rounded">1</button>
+                <button wire:click="resetSlide" class="toggle-button bg-gray-400 hover:bg-gray-400 text-gray-400 px-2 py-1 border border-slate-200 rounded">2</button>
+                <button wire:click="resetSlide" class="toggle-button bg-gray-700 hover:bg-gray-700 text-gray-700 px-2 py-1 border border-slate-200 rounded">3</button>
+                <button wire:click="resetSlide" class="toggle-button bg-blue-600 hover:bg-blue-600 text-blue-600 px-2 py-1 border border-slate-200 rounded">4</button>
+                <button wire:click="resetSlide" class="toggle-button bg-yellow-600 hover:bg-yellow-600 text-yellow-600 px-2 py-1 border border-slate-200 rounded">5</button>
+                <button wire:click="resetSlide" class="toggle-button bg-red-600 hover:bg-red-600 text-red-600 px-2 py-1 border border-slate-200 rounded">6</button>
+            </div> --}}
 
             <!-- Smaller Heading Below Big Heading -->
             <h2 class="text-lg text-black font-semibold mb-4">Variants</h2>
@@ -92,50 +105,3 @@
         </div>
     </div>
 </div>
-  
-
-
-
-
-
-
-{{-- <div class="flex h-screen relative">
-    <h1>Counter: {{ $count }}</h1>
-    <button wire:click="increment">Increment</button>
-    <button wire:click="decrement">Decrement</button>
-</div> --}}
-
-{{-- <script>
-    document.addEventListener('livewire:initialized', () => {
-        @this.on('nextSlide', () => {
-            nextSlide();
-        });
-
-        @this.on('previousSlide', () => {
-            previousSlide();
-        });
-    });
-</script>
-
-<script>
-    document.addEventListener('livewire:initialized', () => {
-       @this.on('post-created', (event) => {
-           //
-       });
-    });
-</script> --}}
-
-
-{{-- <script>
-    function selectOption(option) {
-        document.getElementById('selected-option').innerText = option;
-        toggleDropdown();
-    }
-
-    function toggleDropdown(event) {
-        const details = event.target.closest('details');
-        if (details) {
-            details.open = !details.open;
-        }
-    }
-</script> --}}

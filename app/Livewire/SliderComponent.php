@@ -6,33 +6,43 @@ use Livewire\Component;
 
 class SliderComponent extends Component
 {
-    public $slide = 1;
+    public $sliders = [
+        1 => ['currentSlide' => 1],
+        2 => ['currentSlide' => 1],
+    ];
     public $totalSlides = 4;
+    public $activeSlider = 1;
 
-    // public function nextSlide()
-    // {
-    //     $this->slide = ($this->slide === $this->totalSlides) ? 1 : $this->slide + 1;
-        
-    // }
+    public $buttons = [
+        ['bgColor' => 'white', 'textColor' => 'white'],
+        ['bgColor' => 'gray-400', 'textColor' => 'gray-400'],
+        ['bgColor' => 'gray-700', 'textColor' => 'gray-700'],
+        ['bgColor' => 'blue-600', 'textColor' => 'blue-600'],
+        ['bgColor' => 'yellow-600', 'textColor' => 'yellow-600'],
+        ['bgColor' => 'red-600', 'textColor' => 'red-600'],
+    ];
+    
 
-    // public function previousSlide()
-    // {
-    //     $this->slide = ($this->slide === 1) ? $this->totalSlides : $this->slide - 1;
-        
-    // }
-
-    public function nextSlide()
+    public function switchSlider($sliderNumber)
     {
-        if ($this->slide < $this->totalSlides) {
-            $this->slide++;
-        }
+        if ($sliderNumber != 0) {
+            $this->activeSlider = $sliderNumber;
+            $this->sliders[$sliderNumber]['currentSlide'] = 1;
+        } else 
+        $this->sliders[$this->activeSlider]['currentSlide'] = 1;
     }
 
-    public function previousSlide()
+    public function goToSlide($sliderNumber, $slide)
     {
-        if ($this->slide > 1) {
-            $this->slide--;
-        }
+        $this->sliders[$sliderNumber]['currentSlide'] = $slide;
+    }
+
+    public function changeSlide($sliderNumber, $direction)
+    {
+        $currentSlide = &$this->sliders[$sliderNumber]['currentSlide'];
+        $currentSlide = $direction === 'next' 
+            ? ($currentSlide % $this->totalSlides) + 1 
+            : ($currentSlide === 1 ? $this->totalSlides : $currentSlide - 1);
     }
 
     public function render()
@@ -40,24 +50,3 @@ class SliderComponent extends Component
         return view('livewire.slider-component');
     }
 }
-
-// class SliderComponent extends Component
-// {
-//     public $count = 0;
-
-//     public function increment()
-//     {
-//         $this->count++;
-//     }
-
-//     public function decrement()
-//     {
-//         $this->count--;
-//     }
-
-//     public function render()
-//     {
-//         return view('livewire.slider-component');
-//     }
-// }
-
