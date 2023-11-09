@@ -10,17 +10,21 @@
                 <div class="slideshow-container w-full flex flex-row">
                     @foreach($sliders as $number => $slider)
                         @if($activeSlider === $number)
-                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }} absolute inset-0">
+                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }}">
                                 <!-- Slides -->
                                 @for ($slide = 1; $slide <= $totalSlides; $slide++)
-                                    <div wire:key="slider-{{ $number }}-slide-{{ $slide }}" class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
-                                        <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
+                                    <div wire:key="slider-{{ $number }}-slide-{{ $slide }}" 
+                                    class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
+                                        <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" 
+                                        alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
                                     </div>
                                 @endfor
                                 
                                 <!-- Navigation buttons -->
-                                <a wire:click="changeSlide({{ $number }}, 'prev')" class="next z-10">&#10095;</a>
-                                <a wire:click="changeSlide({{ $number }}, 'next')" class="prev z-10">&#10094;</a>
+                                <a wire:click="changeSlide({{ $number }}, 'prev')" 
+                                class="next z-10">&#10095;</a>
+                                <a wire:click="changeSlide({{ $number }}, 'next')" 
+                                class="prev z-10">&#10094;</a>
                             </div>
                         @endif
                     @endforeach
