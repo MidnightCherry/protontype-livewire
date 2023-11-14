@@ -79,7 +79,7 @@
 <body class="flex flex-col min-h-screen">
     <div class="flex-grow">
         <!-- Navbar (sit on top) -->
-        <div class="w3-top bg-black text-white">
+        <div class="w3-top bg-black text-white z-20">
             <div class="w3-bar" id="myNavbar">
                 <a href="#home" class="w3-bar-item w3-button">Logo</a>
                 <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right">Login</a>
@@ -89,108 +89,9 @@
             <!-- Main Content (70%) -->
             <livewire:slider-component />
             @livewireScripts
-    </div>
-    <!-- Middle Footer -->
-    <div id="#this-is-price" class="bg-gray-400 absolute inset-x-1/4 bottom-0 h-16 w-1/3 justify-center item-center content-center rounded -mb-1">
-        <h1 class="text-white text-center my-5">This is middle footer</h1>
         
     </div>
-
-    {{-- <script>
-        jQuery(document).ready(function($) {
-        // Hide all elements except the first one
-        $('.toggle-content:not(:first)').hide();
-        var fadeDuration = 500;
-
-        $('.toggle-button').on('click', function() {
-            //get index for next btn
-            var index = $('.toggle-button').index(this);
-
-            // Fade out all visible elements with the specified duration
-            $('.toggle-content:visible').fadeOut(fadeDuration);
-            // Fade in the corresponding element with the specified duration
-            $('.toggle-content').eq(index).fadeIn(fadeDuration);
-        });
-    }); 
-    </script>--}}
-    <script>
-        $(document).ready(function(){
-            var initialPrices = [
-                86300, 88300, 82600, 81000
-            ];
-            var model2Prices = [
-                93300, 95300, 83600, 87900
-            ];
-            var model3Prices = [
-                101800, 103800, 97800, 96100
-            ];
-            var model4Prices = [113300, 115300, 109100, 107400];
-            //var targetHeading = $('.elementor-widget-container').find('h1');
-            var targetHeading = $('#this-is-price').find('h1');
-
-            $(".model-button").click(function(){
-                var selectedIndex = $(".dropdown-location").prop('selectedIndex');
-                var indexIsValid = selectedIndex >= 0 && selectedIndex < initialPrices.length;
-                var price = indexIsValid ? initialPrices[selectedIndex] : initialPrices[0]; // Default to initial price
-
-                if ($(this).attr("id") === "model2" && indexIsValid) {
-                    price = model2Prices[selectedIndex];
-                    } else if ($(this).attr("id") === "model3" && indexIsValid) {
-                        price = model3Prices[selectedIndex];
-                    } else if ($(this).attr("id") === "model4" && indexIsValid) {
-                        price = model4Prices[selectedIndex];
-                }
-
-                targetHeading.text("RM " + price.toLocaleString());
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            var initialLinks = [
-                "https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-standard.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-standard.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-standard.pdf",
-                "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-standard.pdf"
-            ];
-            var model2Links = [
-                "https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-executive.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-executive.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-executive.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-executive.pdf"
-            ];
-            var model3Links = [
-                "https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-premium.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-premium.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-premium.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-premium.pdf"
-            ];
-            var model4Links = [
-                "https://www.proton.com/assets/ps2022/x90/pdf/pm-x90-flagship.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/em-x90-flagship.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/labuan-x90-flagship.pdf", 
-                "https://www.proton.com/assets/ps2022/x90/pdf/langkawi-x90-flagship.pdf"
-            ];
-            var targetParagraph = $('.elementor-widget-container').find('h4');
-
-            $(".model-button").click(function(){
-                var selectedIndex = $(".dropdown-location").prop('selectedIndex');
-                var indexIsValid = selectedIndex >= 0 && selectedIndex < initialLinks.length;
-                var link = indexIsValid ? initialLinks[selectedIndex] : initialLinks[0]; // Default to initial link
-
-                if ($(this).attr("id") === "model2" && indexIsValid) {
-                    link = model2Links[selectedIndex];
-                } else if ($(this).attr("id") === "model3" && indexIsValid) {
-                    link = model3Links[selectedIndex];
-                } else if ($(this).attr("id") === "model4" && indexIsValid) {
-                    link = model4Links[selectedIndex];
-                }
-
-                targetParagraph.find('a').attr('href', link).attr('target', '_blank');
-            });
-        });
-    </script>
+    
     
 </body>
 </html>

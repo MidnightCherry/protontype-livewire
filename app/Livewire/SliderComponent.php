@@ -21,15 +21,32 @@ class SliderComponent extends Component
         ['bgColor' => 'yellow-600', 'textColor' => 'yellow-600'],
         ['bgColor' => 'red-600', 'textColor' => 'red-600'],
     ];
+
+    public $carcolours = [
+        ['Snow White' => 'Included'],
+        ['Armour Silver' => 'RM 3000'],
+        ['Jet Grey' => 'RM 3000'],
+        ['Cinnamon Brown' => 'RM 3000'],
+        ['Ruby Red' => 'RM 3000'],
+        ['Marine Blue' => 'RM 3000'],
+    ];
     
+    public $carslider = [
+        'White',
+        'Silver',
+        'Grey',
+        'Brown',
+        'Red',
+        'Blue',
+    ]; 
 
     public function switchSlider($sliderNumber)
     {
-        if ($sliderNumber != 0) {
+        if ($sliderNumber != 0 && $this->activeSlider != $sliderNumber) {
+            $currentSlide = $this->sliders[$this->activeSlider]['currentSlide'];
             $this->activeSlider = $sliderNumber;
-            $this->sliders[$sliderNumber]['currentSlide'] = 1;
-        } else 
-        $this->sliders[$this->activeSlider]['currentSlide'] = 1;
+            $this->sliders[$sliderNumber]['currentSlide'] = $currentSlide;
+        }
     }
 
     public function goToSlide($sliderNumber, $slide)
@@ -45,8 +62,78 @@ class SliderComponent extends Component
             : ($currentSlide === 1 ? $this->totalSlides : $currentSlide - 1);
     }
 
+    public $showMainOptions = true;
+    public $showPaymentOptions = false;
+
+    public function togglePaymentOptions()
+    {
+        $this->showPaymentOptions = !$this->showPaymentOptions;
+        $this->showMainOptions = !$this->showMainOptions;
+    }
+
+    public $showBillingOptions = false;
+    public $showBillingButton = true;
+
+    public function toggleBillingOptions()
+    {
+        $this->showBillingOptions = !$this->showBillingOptions;
+        $this->showBillingButton = !$this->showBillingButton;
+    }
+
+    public $showPersonal = true;
+    public $showBusiness = false;
+
+    public function togglePersonalDetails()
+    {
+        $this->showPersonal = !$this->showPersonal;
+        $this->showBusiness = !$this->showBusiness;
+    }
+
+    public $showCash = true;
+    public $showHirePurchase = false;
+
+    public function toggleCashHire()
+    {
+        $this->showCash = !$this->showCash;
+        $this->showHirePurchase = !$this->showHirePurchase;
+    }
+
+    public $selectedModel = 'model1';
+    public $setLocation;
+    public $selectedLocation = 0;
+    public $currentPrice;
+
+    public $prices = [
+        'model1' => [86300, 88300, 82600, 81000],
+        'model2' => [93300, 95300, 83600, 87900],
+        'model3' => [101800, 103800, 97800, 96100],
+        'model4' => [113300, 115300, 109100, 107400]
+    ];
+
+    public function setModel($model)
+    {
+        $this->selectedModel = $model;
+        $this->updateContent();
+    }
+
+    public function setLocation($location)
+    {
+        $this->selectedLocation = $location;
+        $this->updateContent();
+    }
+
+    private function updateContent()
+    {
+        $this->currentPrice = $this->prices[$this->selectedModel][$this->selectedLocation];
+        //($this->selectedLocation);
+        //ddd($this->currentLink = $this->links[$this->selectedModel][$this->selectedLocation]);
+    }
+
     public function render()
     {
+        // return view('livewire.slider-component', [
+        //     'currentPrice' => $this->currentPrice,
+        // ]);
         return view('livewire.slider-component');
     }
 }
