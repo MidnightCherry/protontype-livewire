@@ -17,28 +17,19 @@ class SliderComponent extends Component
         ['bgColor' => 'white', 'textColor' => 'white'],
         ['bgColor' => 'gray-400', 'textColor' => 'gray-400'],
         ['bgColor' => 'gray-700', 'textColor' => 'gray-700'],
-        ['bgColor' => 'blue-600', 'textColor' => 'blue-600'],
-        ['bgColor' => 'yellow-600', 'textColor' => 'yellow-600'],
+        ['bgColor' => 'stone-700', 'textColor' => 'stone-700'],
         ['bgColor' => 'red-600', 'textColor' => 'red-600'],
+        ['bgColor' => 'blue-600', 'textColor' => 'blue-600'],
     ];
 
     public $carcolours = [
         ['Snow White' => 'Included'],
-        ['Armour Silver' => 'RM 3000'],
-        ['Jet Grey' => 'RM 3000'],
-        ['Cinnamon Brown' => 'RM 3000'],
-        ['Ruby Red' => 'RM 3000'],
-        ['Marine Blue' => 'RM 3000'],
+        ['Armour Silver' => 'RM 3,000'],
+        ['Jet Grey' => 'RM 3,000'],
+        ['Cinnamon Brown' => 'RM 3,000'],
+        ['Ruby Red' => 'RM 3,000'],
+        ['Marine Blue' => 'RM 3,000'],
     ];
-    
-    public $carslider = [
-        'White',
-        'Silver',
-        'Grey',
-        'Brown',
-        'Red',
-        'Blue',
-    ]; 
 
     public function switchSlider($sliderNumber)
     {
@@ -98,42 +89,69 @@ class SliderComponent extends Component
         $this->showHirePurchase = !$this->showHirePurchase;
     }
 
-    public $selectedModel = 'model1';
-    public $setLocation;
-    public $selectedLocation = 0;
-    public $currentPrice;
+    // public $selectedModel = 'Standard';
+    // public $setLocation;
+    // public $selectedLocation = 0;
+    // public $currentPrice;
+
+    // public $prices = [
+    //     'Standard' => [86300, 88300, 82600, 81000],
+    //     'Executive' => [93300, 95300, 83600, 87900],
+    //     'Premium' => [101800, 103800, 97800, 96100],
+    //     'Flagship' => [113300, 115300, 109100, 107400]
+    // ];
+
+    // public function setModel($model)
+    // {
+    //     $this->selectedModel = $model;
+    //     $this->updateContent();
+    // }
+
+    // public function setLocation($location)
+    // {
+    //     $this->selectedLocation = $location;
+    //     $this->updateContent();
+    // }
+    // private function updateContent()
+    // {
+    //     $this->currentPrice = $this->prices[$this->selectedModel][$this->selectedLocation];
+        
+    // }
+
+    // public function render()
+    // {
+    //     return view('livewire.slider-component');
+    // }
 
     public $prices = [
-        'model1' => [86300, 88300, 82600, 81000],
-        'model2' => [93300, 95300, 83600, 87900],
-        'model3' => [101800, 103800, 97800, 96100],
-        'model4' => [113300, 115300, 109100, 107400]
+        'Standard' => [86300, 88300, 82600, 81000],
+        'Executive' => [93300, 95300, 83600, 87900],
+        'Premium' => [101800, 103800, 97800, 96100],
+        'Flagship' => [113300, 115300, 109100, 107400]
     ];
 
-    public function setModel($model)
+    public $selectedModel = 'Standard';
+    public $selectedLocation = 0; 
+
+    public function updateSelection($model, $location)
     {
         $this->selectedModel = $model;
-        $this->updateContent();
-    }
-
-    public function setLocation($location)
-    {
         $this->selectedLocation = $location;
         $this->updateContent();
     }
 
     private function updateContent()
     {
-        $this->currentPrice = $this->prices[$this->selectedModel][$this->selectedLocation];
-        //($this->selectedLocation);
-        //ddd($this->currentLink = $this->links[$this->selectedModel][$this->selectedLocation]);
+        //$this->currentPrice = $this->prices[$this->selectedModel][$this->selectedLocation];
+        ddd($this->currentPrice);
+        //ddd($this->selectedModel);
+        //ddd($this->selectedLocation);
     }
 
     public function render()
     {
-        // return view('livewire.slider-component', [
-        //     'currentPrice' => $this->currentPrice,
-        // ]);
-        return view('livewire.slider-component');
+        return view('livewire.slider-component', [
+            'currentPrice' => $this->currentPrice ?? $this->prices[$this->selectedModel][0],
+        ]);
     }
 }
