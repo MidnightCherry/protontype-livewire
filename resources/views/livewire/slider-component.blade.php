@@ -128,7 +128,7 @@
                 <!-- Vertical Medium Buttons (3 of them) -->
                 <div class="flex flex-col justify-between space-y-2 mb-4 mx-6 font-semibold text-sm">
                     @foreach($prices as $model => $values)
-                        <div wire:click="updateSelection('{{ $model }}')" class="flex flex-row justify-between bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 h-16 cursor-pointer">
+                        <div wire:model.live="selectedModel"  wire:click="setModel('{{ $model }}')" class="flex flex-row justify-between bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 h-16 cursor-pointer">
                             <span class="my-auto h-auto w-24">1.5 TGDi BSG {{ $model }}</span>
                             <span></span>
                             <span class="my-auto inset-y-0 left-0">RM {{ number_format($values[0]) }}</span>
@@ -159,7 +159,7 @@
                 <!-- Dropdown Menu -->
                 <div class="relative flex flex-col space-y-2 mb-8 mx-6">
                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select your Location</label>
-                    <select wire:model="updateSelection" class="bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded block w-full focus:outline-none focus:ring-4 focus:ring-red-300">
+                    <select wire:model.live="selectedLocation" class="bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded block w-full focus:outline-none focus:ring-4 focus:ring-red-300">
                         <option value="0">Peninsular</option>
                         <option value="1">East Malaysia</option>
                         <option value="2">Labuan</option>
