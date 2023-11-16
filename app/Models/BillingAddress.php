@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class BillingAddress extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id', 
+        'address_line_1', 
+        'address_line_2', 
+        'city', 
+        'state', 
+        'post_code', 
+        'country',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
