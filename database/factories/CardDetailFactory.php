@@ -17,7 +17,7 @@ class CardDetailFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(1, 10),
+            'user_id' => fake()->numberBetween(1, 10),
             'name_on_card' => fake()->name(),
             'card_number' => fake()->creditCardNumber($type = null, $formatted = false, $separator = '-'),
             'expiration_month' => fake()->numberBetween(1, 12),

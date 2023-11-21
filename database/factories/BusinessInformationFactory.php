@@ -17,7 +17,7 @@ class BusinessInformationFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(1, 10), 
+            'user_id' => fake()->numberBetween(1, 10), 
             'company_name' => fake()->company(),
             'company_registration_number' => fake()->numerify('######'),
             'sst_registration_number' => fake()->optional()->numerify('######'),

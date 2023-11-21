@@ -17,7 +17,7 @@ class AgreementFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(1, 10), // Adjust the range based on user IDs
+            'user_id' => fake()->numberBetween(1, 10),
             'terms_of_service_agreed' => fake()->boolean($chanceOfGettingTrue = 50),
             'privacy_notice_agreed' => fake()->boolean($chanceOfGettingTrue = 50),
             'payment_terms_agreed' => fake()->boolean($chanceOfGettingTrue = 50),

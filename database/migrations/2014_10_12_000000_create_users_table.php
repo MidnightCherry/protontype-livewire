@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('personal_ID_number');
             $table->enum('type', ['Personal', 'Business']);
             $table->string('email')->unique();  
             $table->timestamp('email_verified_at')->nullable();

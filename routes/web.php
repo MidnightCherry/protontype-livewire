@@ -2,6 +2,8 @@
 
 use App\Livewire\SliderComponent;
 use Illuminate\Support\Facades\Route;
+use app\Http\Controllers\FormController;
+use App\Http\Controllers\PayFormController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/location', [SliderComponent::class, 'setLocation']);
+// Route::post('/submit-form', 'FormController@store')->name('form.submit');
+// Route::get('submit', [FormController::class, 'create']);
+Route::post('submit', [PayFormController::class, 'store']);
+
+

@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Agreement;
+use App\Models\BillingAddress;
+use App\Models\BusinessInformation;
+use App\Models\CardDetail;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,5 +23,14 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $this->call([
+            UsersTableSeeder::class,
+            OrderTableSeeder::class,
+            CardDetailTableSeeder::class,
+            BusinessInformationTableSeeder::class,
+            BillingAddressTableSeeder::class,
+            AgreementTableSeeder::class,
+        ]);
     }
 }

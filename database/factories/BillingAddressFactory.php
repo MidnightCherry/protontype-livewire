@@ -17,7 +17,7 @@ class BillingAddressFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->unique()->numberBetween(1, 10),
+            'user_id' => fake()->numberBetween(1, 10),
             'address_line_1' => fake()->streetName(),
             'address_line_2' => fake()->optional()->streetAddress(),
             'city' => fake()->city(),

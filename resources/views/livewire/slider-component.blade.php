@@ -9,12 +9,14 @@
                 <!-- slider-component.blade.php -->              
                 <div class="slideshow-container w-full flex flex-row">
                     @foreach($sliders as $number => $slider)
-                        @if($activeSlider === $number)
-                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }} absolute inset-0">
+
+                            <div class=" {{ $activeSlider === $number ? 'fade-active' : 'fade' }} absolute inset-0" wire:transitition.duration.50ms>
                                 <!-- Slides -->
                                 @for ($slide = 1; $slide <= $totalSlides; $slide++)
-                                    <div wire:transitition.duration.500ms wire:key="slider-{{ $number }}-slide-{{ $slide }}" class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
-                                        <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
+                                    <div wire:key="slider-{{ $number }}-slide-{{ $slide }}" class="slide {{ $slider['currentSlide'] === $slide ? 'slide-active' : '' }}">
+                                        {{-- <img src="{{ asset("images/proton_car_png/X90/slider{$number}/{$slide}.png") }}" alt="Slider {{ $number }} Image {{ $slide }}" width="100%"> --}}
+                                        <img src="{{ asset("images/proton_car_png/X90/{$slider['color']}/side_{$slide}.png") }}" alt="Slider {{ $number }} Image {{ $slide }}" width="100%">
+                                        {{ $slider['color'] }} and {{ $slide }}
                                     </div>
                                 @endfor
                                 
@@ -24,27 +26,25 @@
                                 <a wire:click="changeSlide({{ $number }}, 'next')" 
                                 class="next z-10 fas fa-angle-right fa-2x"></a>
                             </div>
-                        @endif
-                    @endforeach
+
+                    @endforeach                    
                 </div>
-                
             </div>
-            
         </div>
         <!-- Middle Footer -->
         <div class="">
             <div class="flex flex-row relative">
-                <div data-id="modal-trigger-container" class="absolute z-10 inset-x-0 bottom-0 bg-gray-300 w-2/3 text-black border rounded mx-auto modal-trigger-container">
+                <div data-id="modal-trigger-container" class="absolute z-10 inset-x-0 bottom-0 bg-gray-300 w-2/3 text-black border rounded-2xl mx-auto modal-trigger-container -mb-5">
                     <div class="flex justify-between px-3 py-6">
-                        <div class="flex flex-col w-4/5 mx-2 text-center ">
-                            <div class="">
+                        <div class="flex flex-col w-4/5 mx-2 text-center  ">
+                            <div class="text-lg font-semibold">
                                 <span class="">RM {{ number_format($currentPrice) }}</span>
                                 <span class="">Vehicle Price</span>
                             </div>
                         </div>
                         <span class="vertical-line"></span>
                         <div class="flex flex-col w-4/5 mx-2 text-center">
-                            <div class="">
+                            <div class="text-md font-semibold text-gray-600">
                                 <span class="">RM {{ number_format($currentPrice + ($currentPrice*0.13)) }}</span>
                                 <span class="">After Est. Tax</span>
                             </div>
@@ -73,7 +73,7 @@
                 <!-- Horizontal Color loops button Buttons (3 of them) -->
                 <div class="flex justify-center space-x-2 mx-4 my-6">
                     @foreach($buttons as $index => $info)
-                        <button wire:click="switchSlider({{ $index + 1 }})"
+                        <button wire:click="changeSlider({{ $index + 1 }})"
                                 class="toggle-button bg-{{ $info['textColor'] }} hover:bg-{{ $info['textColor'] }} text-{{ $info['textColor'] }} px-2 py-1 border-2 hover:border-2 hover:border-red-700 rounded focus:ring-2 focus:ring-red-300 rounded-full w-full h-full">
                             {{ $index + 1 }}
                         </button>
@@ -82,48 +82,19 @@
                 <div class="text-center space-x-5 -mt-4 mb-10">
                     <span class="font-bold">{{ key($carcolours[$activeSlider - 1]) }} Paint Coat </span> <span> {{ current($carcolours[$activeSlider - 1]) }}</span>
                 </div>                
+                {{-- Color Buttons --}}
+                {{-- <div class="flex justify-center space-x-2 mx-4 my-6">
+                    @foreach($buttons as $index => $info)
+                        <button wire:click="changeSlider({{ $index + 1}})" class="toggle-button bg-{{ $info['textColor'] }} text-{{ $info['textColor'] }} px-2 py-1 border-2 hover:border-2 hover:border-red-700 rounded focus:ring-2 focus:ring-red-300 rounded-full w-full h-full">
+                            {{ (int)$info['textColor'] + 1}}
+                        </button>
+                    @endforeach
+                </div> --}}
             </div>
-            
-            {{-- <div class="flex justify-center space-x-2 mx-4 my-4">
-            <button wire:click="resetSlide" class="toggle-button bg-white hover:bg-white text-white px-2 py-1 border border-slate-200 rounded">1</button>
-            <button wire:click="resetSlide" class="toggle-button bg-gray-400 hover:bg-gray-400 text-gray-400 px-2 py-1 border border-slate-200 rounded">2</button>
-            <button wire:click="resetSlide" class="toggle-button bg-gray-700 hover:bg-gray-700 text-gray-700 px-2 py-1 border border-slate-200 rounded">3</button>
-            <button wire:click="resetSlide" class="toggle-button bg-stone-700 hover:bg-stone-700 text-stone-700 px-2 py-1 border border-slate-200 rounded">4</button>
-            <button wire:click="resetSlide" class="toggle-button bg-red-600 hover:bg-red-600 text-red-600 px-2 py-1 border border-slate-200 rounded">5</button>
-            <button wire:click="resetSlide" class="toggle-button bg-blue-600 hover:bg-blue-600 text-blue-600 px-2 py-1 border border-slate-200 rounded">6</button>
-            </div> --}}
 
             <div class="my-10">
                 <!-- Smaller Heading Below Big Heading -->
                 <h2 class="text-lg text-black font-semibold mb-4">Variants</h2>
-
-                <!-- Vertical Medium Buttons (3 of them) -->
-                {{-- <div class="flex flex-col justify-between space-y-2 mb-4 mx-6 font-semibold text-sm">
-                    <div wire:click="setModel('model1')" class="flex flex-row justify-between bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 h-16 cursor-pointer">
-                        <span class="my-auto h-auto w-24">1.5 TGDi BSG STANDARD</span>
-                        <span></span>
-                        <span class="my-auto">RM {{ number_format($prices[0]->model1) }}</span>
-                    </div>
-                    <div wire:click="setModel('model2')" class="flex flex-row justify-between bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 h-16 cursor-pointer">
-                        <span class="my-auto h-auto w-24">1.5 TGDi BSG EXECUTIVE</span>
-                        <span></span>
-                        <span class="my-auto">RM {{ number_format($currentPrice) }}</span>
-                    </div>
-                    <div wire:click="setModel('model3')" class="flex flex-row justify-between bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 h-16 cursor-pointer">
-                        <span class="my-auto h-auto w-24">1.5 TGDi BSG PREMIUM</span>
-                        <span></span>
-                        <span class="my-auto">RM {{ number_format($currentPrice) }}</span>
-                    </div>
-                    <div wire:click="setModel('model4')" class="flex flex-row justify-between bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 h-16 cursor-pointer">
-                        <span class="my-auto h-auto w-24">1.5 TGDi BSG FLAGSHIP</span>
-                        <span></span>
-                        <span class="my-auto">RM {{ number_format($currentPrice) }}</span>
-                    </div>
-
-                    <button id="model2" class=".model-button bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300">1.8 TGDi</button>
-                    <button id="model3" class=".model-button bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300">1.8 TGDi</button>
-                    <button id="model4" class=".model-button bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300">1.8 TGDi</button>
-                </div> --}}
                 
                 <!-- Vertical Medium Buttons (3 of them) -->
                 <div class="flex flex-col justify-between space-y-2 mb-4 mx-6 font-semibold text-sm">
@@ -137,7 +108,7 @@
                 </div>
             </div>
             
-            <div class="my-10">
+            {{-- <div class="my-10">
                 <!-- Smaller Heading Below Big Heading -->
                 <h2 class="text-lg text-black font-semibold mb-4">Wheels</h2>
 
@@ -150,8 +121,32 @@
                 <div class="text-center space-x-5">
                     <span class="font-bold">18" Alloy Wheels </span> <span>Included</span>
                 </div>
+            </div> --}}
+
+            <div class="my-10">
+                <!-- Smaller Heading Below Big Heading -->
+                <h2 class="text-lg text-black font-semibold mb-4">Wheels</h2>
+            
+                <!-- Vertical Medium Buttons for Wheel Sizes -->
+                <div class="flex flex-row space-x-3 justify-center mx-5 my-4">
+                    @foreach($wheels as $size => $details)
+                        <!-- Button for each wheel size -->
+                        <button wire:click="setWheelSize('{{ $size }}')"
+                                class="bg-gray-100 hover:bg-gray-200 text-black px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:border-2 rounded-full focus:outline-none focus:ring-4 focus:ring-red-300 w-20 h-20">
+                            {{ $size }}" 
+                        </button>
+                    @endforeach
+                </div>
+            
+                <!-- Displaying the details of the selected wheel size -->
+                <div class="text-center space-x-5">
+                    @if(isset($wheels[$selectedWheelSize]))
+                        <span class="font-bold">{{ $wheels[$selectedWheelSize] }}" Alloy Wheels </span>
+                        <span>{{ $wheels[$selectedWheelSize]['included'] ?? $wheels[$selectedWheelSize]['extraCost'] ?? '' }}</span>
+                    @endif
+                </div>
             </div>
-                        
+            
             <div class="my-10">
                 <!-- Smaller Heading Below Big Heading -->
                 <h2 class="text-lg text-black font-semibold mb-4">Location</h2>
@@ -177,7 +172,6 @@
                         <button wire:click="togglePaymentOptions" class=".model-button bg-red-700 hover:bg-gray-200 text-white text-base font-medium px-4 py-2 border-2 border-slate-400 hover:border-red-700 hover:text-black hover:font-extrabold hover:border-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 ease-in-out duration-300" href="#top">Proceed to Payment</button> 
                     </div>          
             </div>
-                    
         </div>
         
         <!-- Second side menu -->
@@ -194,7 +188,6 @@
                             <!-- Big Heading with Dual Color -->
                             <h1 class="text-5xl font-extrabold text-center text-black mb-4">Proton</h1>
                             <h1 class="text-6xl font-black text-center text-red-700 italic mb-4">X90</h1>
-                            
                         </div>
                         <!-- Vertical Medium Buttons (3 of them) -->
                         <div class="flex flex-col -mt-10 mb-4 text-center">
@@ -209,14 +202,14 @@
                     <!-- Vertical Medium Buttons (3 of them) -->
                     <div class="flex justify-between">
                         <div class="flex flex-col text-left space-y-0.5">
-                            <h3>Proton X90 1.8TGDi</h3>
+                            <h3>Proton X90 1.5 TGDi BSG {{ $currentModel }}</h3>
                             <h3>Pearl White Paint</h3>
                             <h3>18" Photon Wheels</h3>
                             <h3>Black Premium Interior</h3>
                             <h3 class="font-semibold">Vehicle Price</h3>
                         </div>
                         <div class="flex flex-col text-right space-y-0.5">
-                            <h3>RM 123,800</h3>
+                            <h3>RM {{ number_format($currentPrice) }}</h3>
                             <h3>Included</h3>
                             <h3>Included</h3>
                             <h3>Included</h3>
@@ -225,7 +218,6 @@
                     </div>
 
                     <hr class="solid">
-                    
                     <button class="mt-5">Show Details</button>
                     
                     <div class="btn-group-1 flex mt-5 justify-center align-center bg-gray-300 w-full h-12 border rounded">
